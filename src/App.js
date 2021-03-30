@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import './App.css';
 import { Loader } from './Components/Loader';
+import { Table } from './Components/Table';
 
 function App() 
 {
@@ -53,6 +54,7 @@ function App()
 					<div>
 						Number of diamonds: { diamonds.length }
 						Total Price: { totalPrice() }
+						<Table fields={ fields } diamonds={ diamonds } />
 					</div>
 				</>
 			}
