@@ -25,6 +25,7 @@ function App()
 	// Read Diamonds file and arange data
 	useEffect( async () => 
 	{
+		console.log('load');
 		const file = await fetch( './Diamonds.csv' )
 		.then( response => response.text() )
 		.then( text => { return text })
@@ -36,7 +37,7 @@ function App()
 
 	},[])
 
-	// Filter diamonds every filter change
+	// Get all diamonds every filter change
 	useEffect(() => 
 	{
 		if( !diamonds )
@@ -44,15 +45,28 @@ function App()
 			return;
 		}
 
+		setFilterdDiamonds( diamonds );
+		
 		filters.forEach( filter => 
 		{
-			if( filter.value !== '' )
+			if( filter.value === '' )
 			{
-				setFilterdDiamonds( diamonds.filter( diamond => diamond[ filter.field ] === filter.value ));
+				return;
+			}
+			if( filter.type === 'range' )
+			{
+				const arrayRange = ( filter.value ).split('-');
+				console.log( arrayRange );
+				setFilterdDiamonds( filterdDiamonds.filter( diamond => diamond[ filter.field ] >= arrayRange[0] && diamond[ filter.field ] <= arrayRange[1] ));
+			}
+			else
+			{
+				setFilterdDiamonds( filterdDiamonds.filter( diamond => diamond[ filter.field ] === filter.value ));
 			}
 		});
+	},[ filters ]);
 
-	},[ filters ])
+	
 
 	// Convert string to 2D array
 	function csvToArray ( csv ) 
@@ -99,7 +113,7 @@ function App()
 				<> 
 					<div className='general-info'>
 						<p>
-							Number of diamonds: { diamonds.length }
+							Number of diamonds: { filterdDiamonds.length }
 						</p>
 						<p>
 							Total Price: { totalPrice() }
