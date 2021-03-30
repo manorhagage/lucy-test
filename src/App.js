@@ -19,7 +19,6 @@ function App()
 
 		const data = csvToArray( file );
 
-		console.log( data );
 		setDiamonds( data );
 	},[])
 
@@ -50,7 +49,7 @@ function App()
 		let totalPrice = 0;
 		diamonds.map( diamond => 
 		{
-			// totalPrice += parseFloat( diamond['PPC'] / diamond['Carat'] );
+			totalPrice += parseFloat( diamond['PPC'] * diamond['Carat'] );
 		});
 		return totalPrice;
 	}
