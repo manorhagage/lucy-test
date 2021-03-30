@@ -1,0 +1,44 @@
+.table
+{
+    margin: auto;
+    border-collapse: collapse;
+    text-align: center;
+    font-weight: bold;
+}
+
+.table thead
+{
+    background-color: #333;
+    color: #fff;
+    padding: 1vmin;
+}
+
+.table thead tr td
+{
+    padding: 2vmin 1vmin;
+}
+
+.table tbody tr td
+{
+    border: 1px solid #eee;
+    padding: 0.5vmin;
+}
+
+.table tbody tr .ImageLink,
+.table tbody tr .CertificateLink,
+.table tbody tr .VideoLink
+{
+    width: 20vmin;
+}
+
+.table tbody tr .CertificateLink img,
+.table tbody tr .VideoLink img
+{
+    width: 50%;
+}
+
+.table tbody tr td img
+{
+    width: 80%;
+    border-radius: 1vmin;
+}

@@ -62,12 +62,16 @@ function App()
 				? <Loader /> 
 				: 
 				<> 
-					<div>
-						Number of diamonds: { diamonds.length }
-						Total Price: { totalPrice() }
-						<Filters />
-						<Table fields={ fields } diamonds={ diamonds } />
+					<div className='general-info'>
+						<p>
+							Number of diamonds: { diamonds.length }
+						</p>
+						<p>
+							Total Price: { totalPrice() }
+						</p>
 					</div>
+					<Filters />
+					<Table fields={ fields } diamonds={ diamonds } />
 				</>
 			}
 		</div>
