@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import './App.css';
+import { Loader } from './Components/Loader';
 
 function App() 
 {
@@ -44,7 +45,17 @@ function App()
 	
 	return (
 		<div className="App">
-		
+			{
+				!diamonds 
+				? <Loader /> 
+				: 
+				<> 
+					<div>
+						Number of diamonds: { diamonds.length }
+						Total Price: { totalPrice() }
+					</div>
+				</>
+			}
 		</div>
 	);
 }
