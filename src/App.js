@@ -8,7 +8,19 @@ import { Table } from './Components/Table';
 function App() 
 {
 	const [ diamonds, setDiamonds ] = useState();
+	const [ filterdDiamonds, setFilterdDiamonds ] = useState();
 	const [ fields, setFields ] = useState();
+	const [ filters, setFilters ] = useState(
+		[
+			{'field': 'Shape', 'type': 'option', 'value': '' }, 
+			{'field': 'Carat', 'type': 'range', 'value': '' }, 
+			{'field': 'Color', 'type': 'option', 'value': '' }, 
+			{'field': 'Clarity', 'type': 'option', 'value': '' }, 
+			{'field': 'Cut', 'type': 'option', 'value': ''  }, 
+			{'field': 'Polish', 'type': 'option', 'value': '' }, 
+			{'field': 'Symmetry', 'type': 'option', 'value': '' }, 
+			{'field': 'Fluorescent', 'type': 'option', 'value': ''}
+		]);
 
 	// Read Diamonds file and arange data
 	useEffect( async () => 
@@ -20,7 +32,27 @@ function App()
 		const data = csvToArray( file );
 
 		setDiamonds( data );
+		setFilterdDiamonds( data );
+
 	},[])
+
+	// Filter diamonds every filter change
+	useEffect(() => 
+	{
+		if( !diamonds )
+		{
+			return;
+		}
+
+		filters.forEach( filter => 
+		{
+			if( filter.value !== '' )
+			{
+				setFilterdDiamonds( diamonds.filter( diamond => diamond[ filter.field ] === filter.value ));
+			}
+		});
+
+	},[ filters ])
 
 	// Convert string to 2D array
 	function csvToArray ( csv ) 
@@ -51,17 +83,17 @@ function App()
 	function totalPrice()
 	{
 		let totalPrice = 0;
-		diamonds.map( diamond => 
+		filterdDiamonds.map( diamond => 
 		{
 			totalPrice += parseFloat( diamond['PPC'] * diamond['Carat'] );
 		});
-		return totalPrice;
+		return totalPrice.toFixed(2);
 	}
 	
 	return (
 		<div className='App'>
 			{
-				!diamonds 
+				!filterdDiamonds 
 				? <Loader /> 
 				: 
 				<> 
@@ -73,8 +105,8 @@ function App()
 							Total Price: { totalPrice() }
 						</p>
 					</div>
-					<Filters />
-					<Table fields={ fields } diamonds={ diamonds } />
+					<Filters filters={ filters } setFilters={ setFilters } />
+					<Table fields={ fields } diamonds={ filterdDiamonds } />
 				</>
 			}
 		</div>

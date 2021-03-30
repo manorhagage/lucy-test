@@ -1,0 +1,54 @@
+.filters
+{
+    width: 90%;
+    margin: 8vmin auto;
+    display: grid;
+    grid-template-columns: repeat( 4, 1fr );
+    grid-gap: 3vmin;
+}
+
+.filters .filter
+{
+    position: relative;
+    text-align: center;
+    background-color: #E8EDF1;
+    width: 100%;
+    padding: 4vmin;
+    border-radius: 1vmin;
+}
+
+.filters .filter .active-filter
+{
+    display: block;
+    color: #333;
+    font-size: 10px;
+}
+
+.filters .filter .options
+{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 999;
+    border: 1px solid #eee;
+}
+
+.filters .filter .choose
+{
+    display: grid;
+    grid-template-columns: repeat( 3, 1fr );
+}
+
+.filters .filter .choose span
+{
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+
+.filters .filter .choose .active
+{
+    background-color: #333;
+    color: #fff;
+}
