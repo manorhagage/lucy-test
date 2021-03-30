@@ -39,10 +39,10 @@ function FilterTypeOptions({ name, options, setFilters })
 
     return (
         <div className='filter'>
-            <div onClick={ () => { setShowOptions( !showOptions ) }}>
+            <span onClick={ () => { setShowOptions( !showOptions ) }}>
                 { name }
                 <label className='active-filter'> { activeFilter } </label>
-            </div>
+            </span>
             { 
                 showOptions &&
                 <div className='options choose'>

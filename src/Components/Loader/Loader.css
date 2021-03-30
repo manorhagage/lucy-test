@@ -15,7 +15,13 @@
     width: 2rem;
     height: 2rem;
     border-radius: 100%;
-    border: .25rem solid var(--primary-color);
+    border: .25rem solid #eee;
     border-top-color: transparent;
     animation: rotate 0.5s linear infinite;
+}
+
+@keyframes rotate
+{
+    0%{ transform: rotate(0deg); }
+    100%{ transform: rotate(360deg); }
 }

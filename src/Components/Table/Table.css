@@ -1,3 +1,10 @@
+.no-result-msg
+{
+    text-align: center;
+    font-size: 10vmin;
+    color: #888;
+}
+
 .table
 {
     margin: auto;
@@ -28,7 +35,7 @@
 .table tbody tr .CertificateLink,
 .table tbody tr .VideoLink
 {
-    width: 20vmin;
+    width: 10vmin;
 }
 
 .table tbody tr .CertificateLink img,

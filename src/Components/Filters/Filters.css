@@ -10,18 +10,37 @@
 .filters .filter
 {
     position: relative;
-    text-align: center;
     background-color: #E8EDF1;
+    text-align: center;
     width: 100%;
-    padding: 4vmin;
+    height: 10vmin;
     border-radius: 1vmin;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.filters .filter:hover
+{
+    background-color: #d9e2e9;
+}
+
+.filters .filter span
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5vmin;
+    font-weight: bold;
 }
 
 .filters .filter .active-filter
 {
     display: block;
     color: #333;
-    font-size: 10px;
+    font-size: 2vmin;
 }
 
 .filters .filter .options
@@ -33,6 +52,11 @@
     background-color: #fff;
     z-index: 999;
     border: 1px solid #eee;
+}
+
+.filters .filter .options input
+{
+    width: 100%;
 }
 
 .filters .filter .choose

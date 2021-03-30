@@ -119,7 +119,7 @@ function App()
 							Number of diamonds: { filteredDiamonds.length }
 						</p>
 						<p>
-							Total Price: { totalPrice() }
+							Total Price: <span className='price'>{ totalPrice() }$</span>
 						</p>
 					</div>
 					<Filters setFilters={ setFilters } />
