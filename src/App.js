@@ -44,7 +44,7 @@ function App()
 			return;
 		}
 
-		setFilterdDiamonds( diamonds );
+		let tempDiamonds = diamonds;
 		
 		filters.forEach( filter => 
 		{
@@ -55,13 +55,16 @@ function App()
 			if( filter.type === 'range' )
 			{
 				const arrayRange = ( filter.value ).split('-');
-				setFilterdDiamonds( diamonds.filter( diamond => diamond[ filter.field ] >= arrayRange[0] && diamond[ filter.field ] <= arrayRange[1] ));
+				tempDiamonds = tempDiamonds.filter( diamond => diamond[ filter.field ] >= arrayRange[0] && diamond[ filter.field ] <= arrayRange[1] );
 			}
 			else
 			{
-				setFilterdDiamonds( diamonds.filter( diamond => diamond[ filter.field ] === filter.value ));
+				tempDiamonds = tempDiamonds.filter( diamond => diamond[ filter.field ] === filter.value );
 			}
 		});
+
+		setFilterdDiamonds( tempDiamonds );
+
 	},[ filters ]);
 
 	
@@ -75,7 +78,7 @@ function App()
 		rows = csv.split('\n');
 
 		// Split headers to array and remove spaces
-		const arrayOfFields = (( rows.shift() ).replace(/ /g,'')).split(',');
+		const arrayOfFields = (( rows.shift() ).replace( /\s*/g, '' )).split(',');
 
 		setFields( arrayOfFields );
 	
