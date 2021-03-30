@@ -9,6 +9,7 @@ function TableRow({ data })
 {
 	const [ modalIsOpen, setModalIsOpen ] = useState( false );
 	
+	// Render helper - switch case
 	function renderSwitch( data ) 
 	{
 		switch( data[0] ) 

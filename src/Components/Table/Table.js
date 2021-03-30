@@ -5,6 +5,7 @@ import TableRow from './Components/TableRow';
 function Table({ fields, diamonds }) 
 {
     return (
+        <>
         <table className='table'>
             <thead>
                 <tr>
@@ -25,6 +26,10 @@ function Table({ fields, diamonds })
                 }
             </tbody>
         </table>
+        {
+            diamonds.length === 0 && <h1 className='no-result-msg'> No Result </h1>
+        }
+        </>
     )
 }
 

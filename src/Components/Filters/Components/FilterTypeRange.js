@@ -1,18 +1,20 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function FilterTypeRange({ name, filters, setFilters }) 
+function FilterTypeRange({ name, setFilters }) 
 {
     const [ showOptions, setShowOptions ] = useState( false );
     const [ state, setState ] = useState({ min: '', max: '' })
     const [ activeFilter, setActiveFilter ] = useState('');
 
+    // Handle typing
     function handleChange( e ) 
     {
         const value = e.target.value;
         console.log( value );
         setState({ ...state, [ e.target.name ]: value });
-
     };
+
+    // Change filters by state changes
     useEffect(() => 
     {
         const range = state.min + '-' + state.max;
@@ -22,7 +24,7 @@ function FilterTypeRange({ name, filters, setFilters })
             prev.map(({ field, value, ...rest }) => 
             ({
                 ...rest, field,
-                value: field == name ? range : value
+                value: field === name ? range : value
             }))
         );
         

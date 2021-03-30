@@ -1,14 +1,16 @@
 import { useState } from "react";
 
-function FilterTypeOptions({ name, options, filters, setFilters }) 
+function FilterTypeOptions({ name, options, setFilters }) 
 {
     const [ showOptions, setShowOptions ] = useState( false );
     const [ activeFilter, setActiveFilter ] = useState('');
 
+    // Change filters by selceted option
     function changeFilter( selectedOption )
     {
         setShowOptions( !showOptions );
 
+        // Remove filter by reClick the same option
         if( selectedOption === activeFilter )
         {
             setActiveFilter( '' );
@@ -17,7 +19,7 @@ function FilterTypeOptions({ name, options, filters, setFilters })
                 prev.map(({ field, value, ...rest }) => 
                 ({
                     ...rest, field,
-                    value: field == name ? '' : value
+                    value: field === name ? '' : value
                 }))
             );
         }
@@ -29,7 +31,7 @@ function FilterTypeOptions({ name, options, filters, setFilters })
                 prev.map(({ field, value, ...rest }) => 
                 ({
                     ...rest, field,
-                    value: field == name ? selectedOption : value
+                    value: field === name ? selectedOption : value
                 }))
             );
         }

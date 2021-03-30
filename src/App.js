@@ -8,7 +8,7 @@ import { Table } from './Components/Table';
 function App() 
 {
 	const [ diamonds, setDiamonds ] = useState();
-	const [ filterdDiamonds, setFilterdDiamonds ] = useState();
+	const [ filteredDiamonds, setFilteredDiamonds ] = useState();
 	const [ fields, setFields ] = useState();
 	const [ filters, setFilters ] = useState(
 		[
@@ -32,7 +32,7 @@ function App()
 		const data = csvToArray( file );
 
 		setDiamonds( data );
-		setFilterdDiamonds( data );
+		setFilteredDiamonds( data );
 
 	},[])
 
@@ -48,10 +48,13 @@ function App()
 		
 		filters.forEach( filter => 
 		{
+			// Skip empty filters
 			if( filter.value === '' || filter.value === '-' )
 			{
 				return;
 			}
+
+			// Filter types
 			if( filter.type === 'range' )
 			{
 				const arrayRange = ( filter.value ).split('-');
@@ -63,8 +66,7 @@ function App()
 			}
 		});
 
-		setFilterdDiamonds( tempDiamonds );
-
+		setFilteredDiamonds( tempDiamonds );
 	},[ filters ]);
 
 	
@@ -98,7 +100,7 @@ function App()
 	function totalPrice()
 	{
 		let totalPrice = 0;
-		filterdDiamonds.map( diamond => 
+		filteredDiamonds.map( diamond => 
 		{
 			totalPrice += parseFloat( diamond['PPC'] * diamond['Carat'] );
 		});
@@ -108,20 +110,20 @@ function App()
 	return (
 		<div className='App'>
 			{
-				!filterdDiamonds 
+				!filteredDiamonds 
 				? <Loader /> 
 				: 
 				<> 
 					<div className='general-info'>
 						<p>
-							Number of diamonds: { filterdDiamonds.length }
+							Number of diamonds: { filteredDiamonds.length }
 						</p>
 						<p>
 							Total Price: { totalPrice() }
 						</p>
 					</div>
-					<Filters filters={ filters } setFilters={ setFilters } />
-					<Table fields={ fields } diamonds={ filterdDiamonds } />
+					<Filters setFilters={ setFilters } />
+					<Table fields={ fields } diamonds={ filteredDiamonds } />
 				</>
 			}
 		</div>
