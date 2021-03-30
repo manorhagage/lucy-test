@@ -3,28 +3,30 @@ import { useRef, useState, useEffect } from "react";
 function FilterTypeRange({ name, filters, setFilters }) 
 {
     const [ showOptions, setShowOptions ] = useState( false );
-    const minRef = useRef('');
-    const maxRef = useRef('');
+    const [ state, setState ] = useState({ min: '', max: '' })
     const [ activeFilter, setActiveFilter ] = useState('');
 
-    function changeFilter()
+    function handleChange( e ) 
     {
-        setActiveFilter( minRef.current.value + '-' + maxRef.current.value );
-    }
+        const value = e.target.value;
+        console.log( value );
+        setState({ ...state, [ e.target.name ]: value });
 
+    };
     useEffect(() => 
     {
-        if( activeFilter != '' )
-        {
-            setFilters( prev =>
-                prev.map(({ field, value, ...rest }) => 
-                ({
-                    ...rest, field,
-                    value: field == name ? activeFilter : value
-                }))
-            );
-        }
-    }, [ activeFilter ])
+        const range = state.min + '-' + state.max;
+        setActiveFilter( range );
+
+        setFilters( prev =>
+            prev.map(({ field, value, ...rest }) => 
+            ({
+                ...rest, field,
+                value: field == name ? range : value
+            }))
+        );
+        
+    }, [ state ]);
     
     return (
         <div className='filter'>
@@ -35,8 +37,8 @@ function FilterTypeRange({ name, filters, setFilters })
             { 
                 showOptions &&
                 <div className='options'>
-                    <input ref={ minRef } type='text' placeholder='Min' onChange={ changeFilter } />
-                    <input ref={ maxRef } type='text' placeholder='Max' onChange={ changeFilter } />
+                    <input name='min' type='text' placeholder='Min' onChange={(e) => handleChange( e ) } value={ state.min } />
+                    <input name='max' type='text' placeholder='Max' onChange={(e) => handleChange( e ) } value={ state.max }/>
                 </div>
             }
         </div>

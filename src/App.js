@@ -25,7 +25,6 @@ function App()
 	// Read Diamonds file and arange data
 	useEffect( async () => 
 	{
-		console.log('load');
 		const file = await fetch( './Diamonds.csv' )
 		.then( response => response.text() )
 		.then( text => { return text })
@@ -49,19 +48,18 @@ function App()
 		
 		filters.forEach( filter => 
 		{
-			if( filter.value === '' )
+			if( filter.value === '' || filter.value === '-' )
 			{
 				return;
 			}
 			if( filter.type === 'range' )
 			{
 				const arrayRange = ( filter.value ).split('-');
-				console.log( arrayRange );
-				setFilterdDiamonds( filterdDiamonds.filter( diamond => diamond[ filter.field ] >= arrayRange[0] && diamond[ filter.field ] <= arrayRange[1] ));
+				setFilterdDiamonds( diamonds.filter( diamond => diamond[ filter.field ] >= arrayRange[0] && diamond[ filter.field ] <= arrayRange[1] ));
 			}
 			else
 			{
-				setFilterdDiamonds( filterdDiamonds.filter( diamond => diamond[ filter.field ] === filter.value ));
+				setFilterdDiamonds( diamonds.filter( diamond => diamond[ filter.field ] === filter.value ));
 			}
 		});
 	},[ filters ]);
@@ -87,7 +85,7 @@ function App()
 			let arr = row.split(',');
 
 			const obj = {};
-			for (var i = 0; i < arr.length; ++i)
+			for (let i = 0; i < arr.length; ++i)
 				obj[ arrayOfFields[i] ] = arr[i];
 			return obj;
 		});
