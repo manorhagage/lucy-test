@@ -7,7 +7,14 @@ function Table({ fields, diamonds })
     return (
         <table className='table'>
             <thead>
-                <TableRow data={ fields } />
+                <tr>
+                    { 
+                        fields.map(( field, index ) => 
+                        (
+                            <td key={ index } >{ field }</td>
+                        )) 
+                    }
+                </tr>
             </thead>
             <tbody>
                 {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import './App.css';
+import { Filters } from './Components/Filters';
 import { Loader } from './Components/Loader';
 import { Table } from './Components/Table';
 
@@ -17,7 +18,8 @@ function App()
 		.then( text => { return text })
 
 		const data = csvToArray( file );
-		setFields( data.shift() );
+
+		console.log( data );
 		setDiamonds( data );
 	},[])
 
@@ -25,11 +27,20 @@ function App()
 	function csvToArray ( csv ) 
 	{
 		let rows = [];
-		rows = csv.split("\n");
+		rows = csv.split('\n');
+
+		const arrayOfFields = (( rows.shift() ).replace(/ /g,'')).split(',');
+
+		setFields( arrayOfFields );
 	
 		return rows.map( row => 
 		{
-			return row.split(",");
+			let arr = row.split(',');
+
+			const obj = {};
+			for (var i = 0; i < arr.length; ++i)
+				obj[ arrayOfFields[i] ] = arr[i];
+			return obj;
 		});
 	};
 
@@ -39,13 +50,13 @@ function App()
 		let totalPrice = 0;
 		diamonds.map( diamond => 
 		{
-			totalPrice += parseFloat( diamond[ diamond.length - 1 ] );
+			// totalPrice += parseFloat( diamond['PPC'] / diamond['Carat'] );
 		});
 		return totalPrice;
 	}
 	
 	return (
-		<div className="App">
+		<div className='App'>
 			{
 				!diamonds 
 				? <Loader /> 
@@ -54,6 +65,7 @@ function App()
 					<div>
 						Number of diamonds: { diamonds.length }
 						Total Price: { totalPrice() }
+						<Filters />
 						<Table fields={ fields } diamonds={ diamonds } />
 					</div>
 				</>
