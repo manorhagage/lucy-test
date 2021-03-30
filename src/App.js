@@ -26,12 +26,16 @@ function App()
 	function csvToArray ( csv ) 
 	{
 		let rows = [];
+
+		// Split to arrays by new row
 		rows = csv.split('\n');
 
+		// Split headers to array and remove spaces
 		const arrayOfFields = (( rows.shift() ).replace(/ /g,'')).split(',');
 
 		setFields( arrayOfFields );
 	
+		// Split diamonds to objects
 		return rows.map( row => 
 		{
 			let arr = row.split(',');
